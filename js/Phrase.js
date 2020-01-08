@@ -18,7 +18,7 @@ class Phrase {
      * each placeholder comes with a class `hide` by default
      */
     addPhraseToDisplay() {
-        const divPhraseUL = document.querySelector('#phrase/ul');
+        const divPhraseUL = document.querySelector('#phrase > ul');
 
         this.phraseArray.forEach(char => {
             // creates a new LI element to display the letter
@@ -32,7 +32,6 @@ class Phrase {
             divPhraseUL.appendChild(newLI);
         });
 
-        divPhraseUL.appendChild()
     }
 
     /**
@@ -57,4 +56,6 @@ class Phrase {
         LIsLetters.className = `show letter ${letter}`;
 
     }
+
+
 }
