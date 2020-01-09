@@ -51,9 +51,9 @@ class Phrase {
      */
     showMatchedLetter(letter) {
         // SELECT ALL ELEMENTS WITH THE MATCHING CLASS (WITH THE letter PARAM)
-        const LIsLetters = document.querySelectorAll(`.letter .${letter}`);
+        const LIsLetters = document.querySelectorAll(`.letter.${letter}`);
         // UNHIDE ALL SELECTED ELEMENTS
-        LIsLetters.className = `show letter ${letter}`;
+        LIsLetters.forEach(li => li.className = `show letter ${letter}`);
 
     }
 

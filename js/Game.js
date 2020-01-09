@@ -12,7 +12,20 @@ class Game {
             new Phrase('Mustafar'),
             new Phrase('Bantha'),
             new Phrase('Blue Milk'),
-            new Phrase('Lando Calrisian')
+            new Phrase('Lando Calrisian'),
+            new Phrase('Speeder'),
+            new Phrase('X Wing'),
+            new Phrase('Dagobah'),
+            new Phrase('Yoda'),
+            new Phrase('Mace Windu'),
+            new Phrase('Mandalor'),
+            new Phrase('Boba Fett'),
+            new Phrase('Naboo'),
+            new Phrase('Sarlacc'),
+            new Phrase('Salacious Crumb'),
+            new Phrase('Jabba the Hutt'),
+            new Phrase('Wampa'),
+            new Phrase('Baby Yoda'),
             ];
         this.activePhrase = null;
     }
@@ -38,8 +51,9 @@ class Game {
             return;
         }
 
-        // marks the keyboard button as already chosen
         if (this.activePhrase.checkLetter(letter)) {
+            // the user guessed RIGHT!
+            // marks the keyboard button as already chosen
             button.className += ' chosen';
             this.activePhrase.showMatchedLetter(letter);
             // checks if the player won
@@ -48,6 +62,7 @@ class Game {
                 this.gameOver();
             }
         } else {
+            // the user guessed WRONG   :(
             // if the chosen letter does not exists on the active phrase, mark it as wrong
             button.className += ' wrong';
             this.removeLife();
@@ -82,15 +97,18 @@ class Game {
     }
 
     gameOver() {
-        // TODO implement
+        // shows start button overlay to restart the game
         const divOverlay = document.querySelector('#overlay');
         divOverlay.style.display = 'flex';
+
         if (this.checkForWin()) {
+            // marks the overlay with the win appearance
             divOverlay.className = 'win';
-            divOverlay.querySelector('h1').textContent = 'You Win!!';
+            divOverlay.querySelector('h1').textContent = 'The Galaxy is proud of you!!';
         } else {
+            // marks the overlay with the lose appearance
             divOverlay.className = 'lose';
-            divOverlay.querySelector('h1').textContent = 'You Lose!! :(';
+            divOverlay.querySelector('h1').textContent = 'You lose! I can feel your anger... :(';
         }
 
         console.log('gameOver() ===');
