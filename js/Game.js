@@ -28,6 +28,9 @@ class Game {
             new Phrase('Baby Yoda'),
             ];
         this.activePhrase = null;
+        this.sessionActive = false;
+        this.sessions = 0;
+        this.wins = 0;
     }
 
     startGame() {
@@ -37,6 +40,9 @@ class Game {
         this.activePhrase = this.getRandomPhrase();
         // RENDERS THE PHRASE INTO THE DISPLAY
         this.activePhrase.addPhraseToDisplay();
+        // Marks the flag that a game session is active
+        this.sessionActive = true;
+        this.sessions++;
     }
 
     getRandomPhrase() {
@@ -105,11 +111,30 @@ class Game {
             // marks the overlay with the win appearance
             divOverlay.className = 'win';
             divOverlay.querySelector('h1').textContent = 'The Galaxy is proud of you!!';
+            divOverlay.querySelector('h2').textContent = this.activePhrase.phrase;
+            // increments the victories counter
+            this.wins++;
+
+            // renders a new light side point
+            const newPoint = document.createElement('LI');
+            newPoint.className = 'point point-light';
+            document.querySelector('#light-dark-side-counter .mid-filler').insertAdjacentElement('beforebegin', newPoint);
         } else {
             // marks the overlay with the lose appearance
             divOverlay.className = 'lose';
             divOverlay.querySelector('h1').textContent = 'You lose! I can feel your anger... :(';
+
+            // renders a new dark side point
+            const newPoint = document.createElement('LI');
+            newPoint.className = 'point point-dark';
+            document.querySelector('#light-dark-side-counter .mid-filler').insertAdjacentElement('afterend', newPoint);
         }
+        // marks the game session as inactive and increments the session counter
+        this.sessionActive = false;
+        this.sessions++;
+
+        // resets the wrong guessed counter missed
+        this.missed = 0;
 
         console.log('gameOver() ===');
     }

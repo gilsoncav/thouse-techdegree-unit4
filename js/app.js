@@ -1,7 +1,7 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * app.js */
-let game = null;
+let game = new Game();
 
 /**
  * Handler of the click event in the START BUTTON
@@ -9,8 +9,10 @@ let game = null;
  * Resets and start a new game
  */
 document.querySelector('#btn__reset').addEventListener('click', () => {
-    game = new Game();
+    resetsStateAndStartsANewGame();
+});
 
+function resetsStateAndStartsANewGame() {
     // removes all current display elements of letters of the last active phrase
     const LIsPhrase = Array.from(document.querySelectorAll('#phrase li'));
     LIsPhrase.forEach(li => li.parentElement && li.parentElement.removeChild(li));
@@ -24,7 +26,7 @@ document.querySelector('#btn__reset').addEventListener('click', () => {
     IMGsLiveHeartsArray.forEach(img => img.src = 'images/liveHeart.png');
 
     game.startGame();
-});
+}
 
 /**
  * Handles a click in one of the keys in the on-screen keyboard
@@ -38,9 +40,20 @@ document.querySelector('#qwerty').addEventListener('click', evt => {
     }
 });
 
+/**
+ * Handles keyboard events.
+ *
+ * filter for letters and ENTER to start a new game
+ */
 document.addEventListener('keydown', evt => {
+    console.log(`GAME: KEYBOARD KEY PRESSED evt.key=${evt.key}`);
+
+    if (!game.sessionActive && evt.key === 'Enter') {
+        resetsStateAndStartsANewGame();
+    }
+
     const isLetter = /^[a-z]$/.test(evt.key);
-    if (isLetter) {
+    if (isLetter && game.sessionActive) {
         const button = Array.from(document.querySelectorAll('#qwerty button.key')).filter(button => button.textContent === evt.key)[0];
         game.handleInteraction(button, evt.key);
     }
