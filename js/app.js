@@ -1,7 +1,7 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * app.js */
-let game = new Game();
+let game;
 
 /**
  * Handler of the click event in the START BUTTON
@@ -34,10 +34,13 @@ function resetsStateAndStartsANewGame() {
 document.querySelector('#qwerty').addEventListener('click', evt => {
     // Check if it's a button element to avoid handling events in other div elements
     if (evt.target.tagName === 'BUTTON') {
+        game = new Game();
         const letter = evt.target.textContent;
 
         game.handleInteraction(evt.target, letter);
     }
+
+
 });
 
 /**
